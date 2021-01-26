@@ -163,7 +163,7 @@ ipcMain.on('save-dialog-dialog', function(event){
 	
 })
 
-  const menu = isMac ? Menu.buildFromTemplate(templateMac) : template
+  const menu = isMac ? Menu.buildFromTemplate(templateMac) : Menu.buildFromTemplate(template)
   Menu.setApplicationMenu(menu)
 
   // and load the index.html of the app.
