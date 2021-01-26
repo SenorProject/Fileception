@@ -209,7 +209,7 @@ ipcRenderer.on('selected-directory2', (event, path) =>{
 ipcRenderer.on('saved-file', (event, path) => {
 	console.log(path.filePath);
 	let options = {
-		scriptPath: '/Users/mustafamohamed/Desktop/untitled folder',
+		scriptPath: process.cwd()+'/src/py',
 		pythonPath: 'python',
 		args: [file2, file1, path.filePath]
 	  };
