@@ -1,6 +1,9 @@
 const { dialog, ipcRenderer } = require("electron")
-const {PythonShell} = require('python-shell')
+const { exec } = require('child_process')
 const isMac = process.platform === 'darwin'
+const isWin = process.platform === 'win32'
+const isLinux = process.platform === 'linux'
+const arch = process.arch
 
 //Future Reference Code
 
@@ -207,15 +210,35 @@ ipcRenderer.on('selected-directory2', (event, path) =>{
 })
 
 ipcRenderer.on('saved-file', (event, path) => {
-	console.log(path.filePath);
 	let options = {
 		scriptPath: process.cwd()+'/src/py',
 		pythonPath: 'python',
 		args: [file2, file1, path.filePath]
-	  };
-	  PythonShell.run('script.py', options, function (err, results) {
-		if (err) throw err;
-		// results is an array consisting of messages collected during execution
-		console.log('results: %j', results);
-	  });
+	};
+	if (isMac){
+		exec(`${process.cwd()}/src/py/intelmac ${file2} ${file1} ${path.filePath}`, (error, stdout, stderr) => {
+			console.log(`stdout: ${stdout}`);
+		})
+	}
+	else if (isWin){
+		if(arch="x64"){
+			exec(`${process.cwd()}/src/py/winx64.exe ${file2} ${file1} ${path.filePath}`, (error, stdout, stderr) => {
+				console.log(`stdout: ${stdout}`);
+			})	
+		}
+		else{
+			exec(`${process.cwd()}/src/py/winx32.exe ${file2} ${file1} ${path.filePath}`, (error, stdout, stderr) => {
+				console.log(`stdout: ${stdout}`);
+			})	
+		}
+	}
+	else if (isLinux){
+		exec(`${process.cwd()}/src/py/linux ${file2} ${file1} ${path.filePath}`, (error, stdout, stderr) => {
+			console.log(`stdout: ${stdout}`);
+		})	}
+	//   PythonShell.run('script.py', options, function (err, results) {
+	// 	if (err) throw err;
+	// 	// results is an array consisting of messages collected during execution
+	// 	console.log('results: %j', results);
+	//   });
 })
