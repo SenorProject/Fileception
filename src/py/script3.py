@@ -1,20 +1,21 @@
 #!/usr/bin/python
 #
-#written for Python 3
+# Fileception: Angecryption CLI tool
 #
-#Pedro Sicilia
-#Nicholas Tateo
-#CIS4362
-#PDFHider: PDF angecryption CLI tool 
+# Written for Python 3
 #
-#Usage: ./PDFHide [hidden.pdf] [cover.pdf] [combined.pdf]
+# Pedro Sicilia, Mustafa Mohamed, Jacob Frank, Kevin Thomas, Omar Nasir
+# CIS4914 Senior Project
+# 
+#
+# Usage: ./script3 [hidden.pdf] [cover.pdf] [combined.pdf]
 #	-Output file combined.pdf will contain encrypted data from hidden.pdf
 #		but will display as cover.pdf, can be decrypted to show hidden.pdf
 #
-#Encrypt: ./PDFHide -e [combined.pdf]
+# Encrypt: ./script3 -e [combined.pdf]
 #	-intakes user-specified file and encrypts to reveal the other pdf
 #
-#Decrypt: ./PDFHide -d [combined.pdf]
+# Decrypt: ./script3 -d [combined.pdf]
 #	-intakes user-specified file and decrypts to reveal the other pdf
 #
 
@@ -31,7 +32,7 @@ sym_key = b'ABCDEFGHIJKLMNOP'
 EOF = "%%EOF"
 EOF_SIZE = len(EOF)
 
-#takes argument vector as parameter
+# takes argument vector as parameter
 def checkArgs(v):
 	if(len(v) == 4):
 		return True
@@ -42,7 +43,7 @@ def checkArgs(v):
 
 	return False
 	
-#takes argument vector as parameter
+# takes argument vector as parameter
 def checkFlag(v):
 	if(len(v) > 1 and v[1][0] != '-'):
 		return False
@@ -61,7 +62,7 @@ def checkFlag(v):
 				
 		return True
 
-#encrypts result file
+# encrypts result file
 def enc(file):
 	with open(file, "rb") as input:
 		data = input.read()
@@ -78,24 +79,24 @@ def enc(file):
 	
 	i = (enc.find(cryutil.b(pdfmagic), cphr.block_size))
 
-	#insert dummy chunk ending and IV
+	# insert dummy chunk ending and IV
 	enc = enc[:i] + cryutil.b(chunk_end) + enc[i:] + iv
 
 	with open("encrypted.pdf", "wb") as o:
 		o.write(enc)
 
-#decrypts result file
+# decrypts result file
 def dec(file):
 	with open(file, "rb") as input:
 		data = input.read()
 
 	print ("Decrypting file", file, "\nWriting output to decrypted.pdf\n")
 
-	#remove dummy chunk ending
+	# remove dummy chunk ending
 	i = (data.find(cryutil.b(pdfmagic), cphr.block_size))
 	dec = data[:(i - CHUNK_END_SIZE)] + data[i:]
 	
-	#retrieve and remove IV
+	# retrieve and remove IV
 	iv = dec[(-cphr.block_size):]
 	dec = dec[:(-cphr.block_size)]
 
@@ -106,7 +107,7 @@ def dec(file):
 	with open("decrypted.pdf", "wb") as o:
 		o.write(dec)
 
-#pads data to a multiple of cipher block size
+# pads data to a multiple of cipher block size
 def pad(fdata):
 	return fdata + ((cphr.block_size - len(fdata) % cphr.block_size) * chr(cphr.block_size - len(fdata) % cphr.block_size)).encode()
 
