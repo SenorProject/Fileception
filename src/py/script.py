@@ -1,11 +1,14 @@
 #!/usr/bin/python
 #
-#written for Python 2.7
+#Version: Python 2.7?
 #
 #Pedro Sicilia
-#Nicholas Tateo
-#CIS4362
-#PDFHider: PDF angecryption CLI tool 
+#Kevin Thomas
+#Mustafa Mohamed
+#Jacob Frank
+#Omar Nasir
+#CIS4914 - Senior Project
+#PDFHider: PDF angecryption {Current: CLI}
 #
 #Usage: ./PDFHide [hidden.pdf] [cover.pdf] [combined.pdf]
 #	-Output file combined.pdf will contain encrypted data from hidden.pdf
