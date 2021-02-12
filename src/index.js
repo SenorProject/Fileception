@@ -1,7 +1,7 @@
 const { app, BrowserWindow, Menu, shell, dialog, ipcMain } = require('electron');
 const path = require('path');
 
-//require('electron-reload')(__dirname); // Buggy but is useful
+require('electron-reload')(__dirname); // Buggy but is useful
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) { // eslint-disable-line global-require
@@ -161,6 +161,27 @@ ipcMain.on('save-dialog-dialog', function(event){
 		event.sender.send('saved-file', filename)
 	})
 	
+})
+
+ipcMain.on('open-file3', (event) => {
+	dialog.showOpenDialog({
+		properties: ['openFile']
+	}).then (files => {
+		if(files){
+			event.sender.send('selected-directory2', files)
+		}
+	})
+})
+
+ipcMain.on('open-file-dialog3', (event) => {
+	const window = BrowserWindow.fromWebContents(event.sender)
+	dialog.showOpenDialog(window, {
+		properties: ['openFile']
+	}).then(files => {
+		if(files){
+			event.sender.send('selected-directory3', files)
+		}
+	})
 })
 
   const menu = isMac ? Menu.buildFromTemplate(templateMac) : Menu.buildFromTemplate(template)

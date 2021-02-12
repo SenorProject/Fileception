@@ -23,7 +23,7 @@
 body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   margin: auto;
-  padding: 2rem;
+  padding: 3rem 2rem 3rem 2rem;
   background-color: black;
   color: white;
 }
@@ -70,7 +70,7 @@ p {
 }
 
 /* Back Button */
-#backbutton{
+#backbutton, #backbutton2{
   align-self: flex-start;
   border: 2px solid;
   border-radius: 4px;
@@ -81,11 +81,10 @@ p {
   background-color: transparent;
   outline: none;
   -webkit-app-region: no-drag;
-  margin: 1em 0 0 0;
 }
 
 .uploadbox{
-  margin-right: 1em;
+  margin-bottom: 1em;
   border: 2px solid;
   border-radius: 4px;
   font: inherit;
@@ -95,9 +94,9 @@ p {
   background-color: transparent;
   outline: none;
   -webkit-app-region: no-drag;
-  width: 20em;
-  height: 25em;
-}
+  width: 35em;
+  height: 13em;
+} 
 
 #button-container{
   display: block;
@@ -107,7 +106,7 @@ p {
   text-align: center;
 }
  
-#upload-container{
+#upload-container, #upload-container2{
   display: block; 
   justify-content: center;
   align-items: center;
@@ -128,15 +127,15 @@ p {
   margin: 1em 0 0 0;
 }
 
-#createfile{
+#createfile, #flipfile{
   display: none;
   margin: auto;
 }
 
-#opt4{
+#opt4, #opt5{
   align-self: flex-start;
   margin-right: 1em;
-  margin-top: 2em;
+  margin-top: 1em;
   border: 2px solid;
   border-radius: 4px;
   font: inherit;
@@ -156,7 +155,6 @@ p {
 }
 
 .glitch {
-  position: relative;
   color: white;
   /* Animation provies a slight random skew. Check bottom of doc
   for more information on how to random skew. */
@@ -186,7 +184,7 @@ p {
   left: 0;
   width: 100%;
   height: 100%;
-  left: -2px;
+  left: -2px; 
   text-shadow: -2px 0 #00fff9, 2px 2px #ff00c1;
   animation: glitch-anim2 60s infinite linear alternate-reverse;
 }

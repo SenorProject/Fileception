@@ -36,39 +36,66 @@
 			<div id="button-container">
 				<button id="opt1-big">
 					<h2>Create New File</h2>
-					<p>Description</p>
+					<p style="font-size:15px">Hides one file within another</p>
 				</button>
 				<button id="opt2-big">
 					<h2>Flip Existing File</h2>
-					<p>Description</p>
+					<p style="font-size:15px">Retrieve hidden file</p>
 				</button>
 				<ul><button id="opt3">About this app</button></ul>
 			</div>
 		</div>
 	</div>
 	<div id="createfile">
-		<div style="display: flex">
+		<div style="display: inline-flex">
 			<button id="backbutton">←</button>
 			<h1 
 			class="glitch", 
 			id="title", 
-			style='font-family: customFont; font-size: 100px; text-align: center;',
+			style='font-family: customFont; font-size: 100px; text-align: center;
+			',
 			data-text="fileception"
 			>fileception</h1>
-		</div>
+		</div> 
 		
 		<div id="upload-container">
 			<button class="uploadbox" id="dragfile1">
 				<h3>Drag and Drop or Browse File 1</h3>
 				<h6>Visible File</h6>
-				<input id="filelocation1" type="text" value="" class="textbox" placeholder="File Path"/>
+				<input disabled style="width:100%;" id="filelocation1" type="text" value="" class="textbox" placeholder="File Path"/>
 			</button>
 			<button class="uploadbox" id="dragfile2">
 				<h3>Drag and Drop or Browse File 2</h3>
 				<h6>Hidden File</h6>
-				<input id="filelocation2" type="text" value="" class="textbox" placeholder="File Path"/>
+				<input disabled style="width:100%;" id="filelocation2" type="text" value="" class="textbox" placeholder="File Path"/>
 			</button>
 			<ul><button id="opt4" disabled=true>Create File!</button></ul>
+		</div>
+	</div> 
+	<div id="flipfile">
+		<div style="display: inline-flex">
+			<button id="backbutton2">←</button>
+			<h1 
+			class="glitch", 
+			id="title", 
+			style='font-family: customFont; font-size: 100px; text-align: center;
+			',
+			data-text="fileception"
+			>fileception</h1>
+		</div> 
+		<div id="upload-container2">
+			<button class="uploadbox" id="dragfile3">
+				<h3>Drag and Drop or Browse Existing File</h3>
+				<input disabled style="width:100%;" id="filelocation3" type="text" value="" class="textbox" placeholder="File Path"/>
+			</button>
+			<button class="uploadbox" id="dragfile4">
+				<h3>Encrypt or Decrypt</h3>
+				<select name"Option" id="dropdown" class="textbox">
+					<option value="e">Encrypt</option>
+					<option value="d">Decrypt</option>
+				</select>
+			</button>
+			<ul><button id="opt5" disabled=true>Flip File!</button></ul>
 		</div>
 	</div>
 	
