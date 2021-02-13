@@ -92,8 +92,8 @@ const createWindow = () => {
   const mainWindow = new BrowserWindow({
     width: 1000,
 	height: 830,
-	minWidth: 655,
-	minHeight: 500,
+	minWidth: 750,
+	minHeight: 820,
     webPreferences: {
 		devTools: true,
 		nodeIntegration: true,
@@ -103,11 +103,14 @@ const createWindow = () => {
 	icon: __dirname + '/assets/icons/icon.png'
   });
 
+var fileext = "";
+
 ipcMain.on('open-file1', (event) => {
 	dialog.showOpenDialog({
 		properties: ['openFile']
 	}).then (files => {
 		if(files){
+			// fileext = files.filePaths[0].substring(files.filePaths[0].lastIndexOf('.') + 1)
 			event.sender.send('selected-directory1', files)
 		}
 	})
@@ -119,6 +122,7 @@ ipcMain.on('open-file-dialog1', (event) => {
 		properties: ['openFile']
 	}).then(files => {
 		if(files){
+			// fileext = files.filePaths[0].substring(files.filePaths[0].lastIndexOf('.') + 1)
 			event.sender.send('selected-directory1', files)
 		}
 	})
@@ -145,22 +149,38 @@ ipcMain.on('open-file-dialog2', (event) => {
 	})
 })
 
-ipcMain.on('save-dialog', (event) => {
+ipcMain.on('save-dialog1', (event, args) => {
 	dialog.showSaveDialog({
-
+		defaultPath: `combined.`+args,
 	}).then(filename=>{
-		event.sender.send('saved-file', filename)
+		event.sender.send('saved-file1', filename)
 	})
 })
 
-ipcMain.on('save-dialog-dialog', function(event){
+ipcMain.on('save-dialog-dialog1', (event, args) => {
 	const window = BrowserWindow.fromWebContents(event.sender)
 	dialog.showSaveDialog(window, {
-
+		defaultPath: `combined.`+args,
 	}).then(filename=>{
-		event.sender.send('saved-file', filename)
+		event.sender.send('saved-file1', filename)
 	})
-	
+})
+
+ipcMain.on('save-dialog2', (event, args) => {
+	dialog.showSaveDialog({
+		defaultPath: `combined.`+args,
+	}).then(filename=>{
+		event.sender.send('saved-file2', filename)
+	})
+})
+
+ipcMain.on('save-dialog-dialog2', (event, args) => {
+	const window = BrowserWindow.fromWebContents(event.sender)
+	dialog.showSaveDialog(window, {
+		defaultPath: `combined.`+args,
+	}).then(filename=>{
+		event.sender.send('saved-file2', filename)
+	})
 })
 
 ipcMain.on('open-file3', (event) => {

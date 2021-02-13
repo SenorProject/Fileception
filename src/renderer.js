@@ -27,6 +27,9 @@ const arch = process.arch
 
 // // btn.dispatchEvent(new Event('click'));
 
+
+// Vars for app windows
+
 var x = document.getElementById("mainwindow");
 var y = document.getElementById("createfile")
 var z = document.getElementById('flipfile')
@@ -105,6 +108,16 @@ document.getElementById("opt2-big").onmouseout = () => {
 	x.style.backgroundColor = null
 };
 
+document.getElementById("opt3-big").onmouseover = () => {
+	var x = document.getElementById("opt3-big");
+	x.style.backgroundColor = 'red'
+};
+
+document.getElementById("opt3-big").onmouseout = () => {
+	var x = document.getElementById("opt3-big");
+	x.style.backgroundColor = null
+};
+
 // Create File Window
 
 var file1 = "";
@@ -113,27 +126,10 @@ var file2 = "";
 document.getElementById("backbutton").addEventListener('click', () => {
 	x.style.display = "block";
 	y.style.display = "none";
-	z.style.display = "none"
 	document.getElementById("filelocation1").value = ""
 	document.getElementById("filelocation2").value = ""
-	document.getElementById("filelocation3").value = ""
 	document.getElementById("opt4").disabled = false
 	document.getElementById("opt4").style.color = "grey"
-	document.getElementById("opt5").disabled = false
-	document.getElementById("opt5").style.color = "grey"
-});
-
-document.getElementById("backbutton2").addEventListener('click', () => {
-	x.style.display = "block";
-	y.style.display = "none";
-	z.style.display = "none"
-	document.getElementById("filelocation1").value = ""
-	document.getElementById("filelocation2").value = ""
-	document.getElementById("filelocation3").value = ""
-	document.getElementById("opt4").disabled = false
-	document.getElementById("opt4").style.color = "grey"
-	document.getElementById("opt5").disabled = false
-	document.getElementById("opt5").style.color = "grey"
 });
 
 document.getElementById("dragfile1").addEventListener('drop', (event) => { 
@@ -168,7 +164,7 @@ document.getElementById("dragfile2").addEventListener('drop', (event) => {
 		for (const f of event.dataTransfer.files) { 
 			// Using the path attribute to get absolute file path 
 			file2 = f.path 
-			var elem = document.getElementById("filelocation2")
+			var elem = document.getElementById("filelocation2") 
 			elem.innerHTML = ""
 			elem.value = file2
 			if(document.getElementById("filelocation1").value != ""){
@@ -180,30 +176,6 @@ document.getElementById("dragfile2").addEventListener('drop', (event) => {
 }); 
   
 document.getElementById("dragfile2").addEventListener('dragover', (e) => { 
-	e.preventDefault(); 
-	e.stopPropagation(); 
-}); 
-
-
-document.getElementById("dragfile3").addEventListener('drop', (event) => { 
-	if(z.style.display != "none"){
-		event.preventDefault(); 
-		event.stopPropagation(); 
-  
-		for (const f of event.dataTransfer.files) { 
-			// Using the path attribute to get absolute file path 
-			file2 = f.path 
-			var elem = document.getElementById("filelocation3")
-			elem.innerHTML = ""
-			elem.value = file2
-			document.getElementById("opt5").style.color = "inherit"
-			document.getElementById("opt5").disabled = false
-			
-		} 
-	}	
-}); 
-  
-document.getElementById("dragfile3").addEventListener('dragover', (e) => { 
 	e.preventDefault(); 
 	e.stopPropagation(); 
 }); 
@@ -224,19 +196,12 @@ document.getElementById("dragfile2").addEventListener('click', (event) => {
 	}
 });
 
-document.getElementById("dragfile3").addEventListener('click', (event) => {
-	if(isMac){
-		ipcRenderer.send('open-file-dialog3')
-	} else {
-		ipcRenderer.send('open-file3') 
-	}
-});
-
 document.getElementById('opt4').addEventListener('click', (event) => {
+	fileext = file1.substring(file1.lastIndexOf('.') + 1)
 	if(isMac){
-		ipcRenderer.send('save-dialog-dialog')
+		ipcRenderer.send('save-dialog-dialog1', fileext)
 	} else {
-		ipcRenderer.send('save-dialog')
+		ipcRenderer.send('save-dialog1', fileext)
 	}
 })
 
@@ -251,7 +216,6 @@ ipcRenderer.on('selected-directory1', (event, path) =>{
 		document.getElementById("opt4").style.color = "inherit"
 		document.getElementById("opt4").disabled = false
 	}
-
 })
 
 ipcRenderer.on('selected-directory2', (event, path) =>{
@@ -267,20 +231,7 @@ ipcRenderer.on('selected-directory2', (event, path) =>{
 	}
 })
 
-ipcRenderer.on('selected-directory3', (event, path) =>{
-	var elem = document.getElementById("filelocation3")
-	elem.innerHTML = ""
-	if(path.filePaths[0] != null){
-		file2 = path.filePaths[0]
-		elem.value = file2
-	}
-	if(document.getElementById("filelocation1").value != ""){
-		document.getElementById("opt5").style.color = "inherit"
-		document.getElementById("opt5").disabled = false
-	}
-})
-
-ipcRenderer.on('saved-file', (event, path) => {
+ipcRenderer.on('saved-file1', (event, path) => {
 	// let options = {
 	// 	scriptPath: process.cwd()+'/src/py',
 	// 	pythonPath: 'python',
@@ -312,4 +263,93 @@ ipcRenderer.on('saved-file', (event, path) => {
 	// 	// results is an array consisting of messages collected during execution
 	// 	console.log('results: %j', results);
 	//   });
+})
+
+// Flip file window
+
+var file3 = ""
+
+document.getElementById("backbutton2").addEventListener('click', () => {
+	x.style.display = "block";
+	z.style.display = "none"
+	document.getElementById("filelocation3").value = ""
+	document.getElementById("opt5").disabled = false
+	document.getElementById("opt5").style.color = "grey"
+});
+
+document.getElementById("dragfile3").addEventListener('drop', (event) => { 
+	if(z.style.display != "none"){
+		event.preventDefault(); 
+		event.stopPropagation(); 
+  
+		for (const f of event.dataTransfer.files) { 
+			// Using the path attribute to get absolute file path 
+			file3 = f.path 
+			var elem = document.getElementById("filelocation3")
+			elem.innerHTML = ""
+			elem.value = file3
+			document.getElementById("opt5").style.color = "inherit"
+			document.getElementById("opt5").disabled = false	
+		} 
+	}	
+}); 
+  
+document.getElementById("dragfile3").addEventListener('dragover', (e) => { 
+	e.preventDefault(); 
+	e.stopPropagation(); 
+}); 
+
+document.getElementById("dragfile3").addEventListener('click', (event) => {
+	if(isMac){
+		ipcRenderer.send('open-file-dialog3')
+	} else {
+		ipcRenderer.send('open-file3') 
+	}
+});
+
+ipcRenderer.on('selected-directory3', (event, path) =>{
+	var elem = document.getElementById("filelocation3")
+	elem.innerHTML = ""
+	if(path.filePaths[0] != null){
+		file3 = path.filePaths[0]
+		elem.value = file3
+	}
+	if(document.getElementById("filelocation3").value != ""){
+		document.getElementById("opt5").style.color = "inherit"
+		document.getElementById("opt5").disabled = false
+	}
+})
+
+ipcRenderer.on('saved-file2', (event, path) => {
+	flag = document.getElementById("dropdown").value
+	if (isMac){
+		exec(`${process.cwd()}/src/py/intelmac -${flag} ${file3}`, (error, stdout, stderr) => {
+			console.log(`stdout: ${stdout}`);
+		})
+	}
+	else if (isWin){
+		if(arch="x64"){
+			exec(`${process.cwd()}/src/py/winx64.exe -${flag} ${file3}`, (error, stdout, stderr) => {
+				console.log(`stdout: ${stdout}`);
+			})	
+		}
+		else{
+			exec(`${process.cwd()}/src/py/winx32.exe -${flag} ${file3}`, (error, stdout, stderr) => {
+				console.log(`stdout: ${stdout}`);
+			})	
+		}
+	}
+	else if (isLinux){
+		exec(`${process.cwd()}/src/py/linux -${flag} ${file3}`, (error, stdout, stderr) => {
+			console.log(`stdout: ${stdout}`);
+		})	}
+})
+
+document.getElementById('opt5').addEventListener('click', (event) => {
+	fileext = file3.substring(file1.lastIndexOf('.') + 1)
+	if(isMac){
+		ipcRenderer.send('save-dialog-dialog2', fileext)
+	} else {
+		ipcRenderer.send('save-dialog2', fileext)
+	}
 })
