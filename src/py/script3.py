@@ -22,6 +22,7 @@
 import sys
 from Crypto.Cipher import AES
 import Crypto.Util.py3compat as cryutil
+import secrets
 
 c0 =  "%PDF-obj\nstream\n"
 chunk_end = "\nendstream\nendobj\n"
@@ -64,8 +65,17 @@ def checkFlag(v):
 
 # encrypts result file
 def enc(file):
-    with open(file, "rb") as input:
-        data = input.read()
+
+    choice = input("Would you like to use a keyfile to encrypt [Y/n]? ")
+    if choice.lower() == 'y':
+        key_file_path = input("Enter the path to the keyfile: ")
+        key_file = open(key_file_path, 'rb')
+        key = key_file.read()
+    else:
+        key = sym_key
+
+    with open(file, "rb") as stream:
+        data = stream.read()
 
     print ("Encrypting file", file, "\nWriting output to encrypted.pdf\n")
 
@@ -73,7 +83,7 @@ def enc(file):
     iv = data[(-cphr.block_size):]
     data = data[:(-cphr.block_size)]
 
-    cbc_e = cphr.new(sym_key, cphr.MODE_CBC, iv)
+    cbc_e = cphr.new(key, cphr.MODE_CBC, iv)
 
     enc = cbc_e.encrypt(data)
 
@@ -87,8 +97,17 @@ def enc(file):
 
 # decrypts result file
 def dec(cfile):
-    with open(cfile, "rb") as input:
-        data = input.read()
+
+    import_choice = input("Would you like to import a key [Y/n]? ")
+    if import_choice.lower() == "y":
+        key_file_path = input("Enter the path to the keyfile: ")
+        key_file = open(key_file_path,"rb")
+        key = key_file.read()
+    else:
+        key = sym_key
+
+    with open(cfile, "rb") as stream:
+        data = stream.read()
 
     print ("Decrypting file", cfile, "\nWriting output to file\n")
 
@@ -100,11 +119,11 @@ def dec(cfile):
     iv = dec[(-cphr.block_size):]
     dec = dec[:(-cphr.block_size)]
 
-    cbc_d = cphr.new(sym_key, cphr.MODE_CBC, iv)
+    cbc_d = cphr.new(key, cphr.MODE_CBC, iv)
     dec = cbc_d.decrypt(dec)
     
     header = str(dec[:14])
-    print(header)
+    #print(header)
     magics = {'PDF', 'PNG', 'JFIF', 'MZ', 'PK'}
     fileType = ''
     for t in magics:
@@ -112,7 +131,7 @@ def dec(cfile):
             fileType = t.lower()
             break
     
-    print(fileType)  
+    #print(fileType)  
     if fileType == 'jfif':
         fileType = 'jpg'
     elif fileType == 'mz':
@@ -128,7 +147,8 @@ def dec(cfile):
 
         print("File Saved as:",fileName)
     else:
-        print("Filetype not recognized")
+        print("Filetype not recognized. You may be using the wrong key, or are attempting to convert an unsupported file.")
+        sys.exit(0)
 
 # pads data to a multiple of cipher block size
 def pad(fdata):
@@ -142,15 +162,24 @@ if(checkFlag(sys.argv)):
 elif(checkArgs(sys.argv)):
     infile1, infile2, outfile = sys.argv[1:4]
 
-    with open(infile1, "rb") as input:
-        infile1 = pad(input.read())
+    key_choice = input("Would you like to generate a unique key? (Note: if a unique key is used, it is required for decryption)\n[Y/n]:")
+    if key_choice.lower() == 'y':
+        key = secrets.token_bytes(32) # 32 byte AES key
+        key_file = open("key.txt", "wb")
+        key_file.write(key)
+        print(key)
+    else:
+        key = sym_key
 
-    with open(infile2, "rb") as input:
-        infile2 = pad(input.read())
+    with open(infile1, "rb") as data:
+        infile1 = pad(data.read())
+
+    with open(infile2, "rb") as data:
+        infile2 = pad(data.read())
 
     ptxt = infile1[:cphr.block_size]
 
-    ecb = cphr.new(sym_key, cphr.MODE_ECB)
+    ecb = cphr.new(key, cphr.MODE_ECB)
     c0 = ecb.decrypt(c0.encode())
 
     initV = ""
@@ -160,7 +189,7 @@ elif(checkArgs(sys.argv)):
         x = c0[i] ^ ptxt[i]
         initV += chr(x)
 
-    cbc_init = cphr.new(sym_key, cphr.MODE_CBC, cryutil.tobytes(initV))
+    cbc_init = cphr.new(key, cphr.MODE_CBC, cryutil.tobytes(initV))
 
     combo = cbc_init.encrypt(infile1)
 
