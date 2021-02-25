@@ -33,6 +33,7 @@ const arch = process.arch
 var x = document.getElementById("mainwindow");
 var y = document.getElementById("createfile")
 var z = document.getElementById('flipfile')
+var highlight = 'black'
 
 // Main window actions small
 
@@ -43,7 +44,7 @@ document.getElementById("opt1").addEventListener('click', () => {
 
 document.getElementById("opt1").onmouseover = () => {
 	var x = document.getElementById("opt1");
-	x.style.backgroundColor = 'red'
+	x.style.backgroundColor = highlight
 };
 
 document.getElementById("opt1").onmouseout = () => {
@@ -58,7 +59,7 @@ document.getElementById("opt2").addEventListener('click', () => {
 
 document.getElementById("opt2").onmouseover = () => {
 	var x = document.getElementById("opt2");
-	x.style.backgroundColor = 'red'
+	x.style.backgroundColor = highlight
 };
 
 document.getElementById("opt2").onmouseout = () => {
@@ -68,7 +69,7 @@ document.getElementById("opt2").onmouseout = () => {
 
 document.getElementById("opt3").onmouseover = () => {
 	var x = document.getElementById("opt3");
-	x.style.backgroundColor = 'red'
+	x.style.backgroundColor = highlight
 };
 
 document.getElementById("opt3").onmouseout = () => {
@@ -85,7 +86,7 @@ document.getElementById("opt1-big").addEventListener('click', () => {
 
 document.getElementById("opt1-big").onmouseover = () => {
 	var x = document.getElementById("opt1-big");
-	x.style.backgroundColor = 'red'
+	x.style.backgroundColor = highlight
 };
 
 document.getElementById("opt1-big").onmouseout = () => {
@@ -100,7 +101,7 @@ document.getElementById("opt2-big").addEventListener('click', () => {
 
 document.getElementById("opt2-big").onmouseover = () => {
 	var x = document.getElementById("opt2-big");
-	x.style.backgroundColor = 'red'
+	x.style.backgroundColor = highlight
 };
 
 document.getElementById("opt2-big").onmouseout = () => {
@@ -110,7 +111,7 @@ document.getElementById("opt2-big").onmouseout = () => {
 
 document.getElementById("opt3-big").onmouseover = () => {
 	var x = document.getElementById("opt3-big");
-	x.style.backgroundColor = 'red'
+	x.style.backgroundColor = highlight
 };
 
 document.getElementById("opt3-big").onmouseout = () => {
