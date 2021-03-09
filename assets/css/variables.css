@@ -1,0 +1,20 @@
+
+/* Custom Properties */
+
+:root {
+  --color:          white;
+  --color-subtle:   rgba(255, 255, 255, 0.658);
+  --color-strong:   rgba(255, 255, 255, 0.404);
+  --color-link:     rgba(255, 255, 255, 0.048);
+
+  --color-border:   hsl(0,0%,88%);
+  --color-bg:       hsl(0,0%,96%);
+
+  --color-accent:   black; /* Fallback */
+}
+
+
+/* Category Colors */
+
+.u-category-menu          { --color-accent: hsl(194, 60%, 36%); }
+.u-category-system        { --color-accent: red; }
