@@ -82,9 +82,10 @@ function makeSingleInstance () {
   })
 }
 
-// Require each JS file in the main-process dir
+// Require each JS file in the main-process dir 
+// Handles interprocess communications and menu bar
 function loadExtras () {
-  const files = glob.sync(path.join(__dirname, 'main-process/**/*.js'))
+  const files = glob.sync(path.join(__dirname, 'main-process/*.js'))
   files.forEach((file) => { require(file) })
 }
 
