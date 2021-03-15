@@ -1,36 +1,42 @@
 <template class="task-template">
-  <section id="clipboard-section" class="section js-section u-category-system">
-    <header class="section-header">
-      <div class="section-wrapper">
-        <h1>
-          Decrypt existing file
-        </h1>
-        <h3>Takes existing file and decrypts the encrypted file.</h3>
-        <p>Retreive hidden file from combined file.</p>
-      </div>
-    </header>
+	<section id="clipboard-section" class="section js-section u-category-system">
+		<header class="section-header">
+			<div class="section-wrapper">
+				<h1>
+					Decrypt existing file
+				</h1>
+				<h3>Takes existing file and decrypts the encrypted file.</h3>
+				<p>Retreive hidden file from combined file.</p>
+			</div>
+		</header>
 
-    <!-- <div class="demo">
-      <div class="demo-wrapper">
-        <button id="copy-to-demo-toggle" class="js-container-target demo-toggle-button">Copy
-          <div class="demo-meta u-avoid-clicks">Supports: Win, macOS, Linux <span class="demo-meta-divider">|</span> Process: Both</div>
-        </button>
-        <div class="demo-box">
-          <div class="demo-controls">
-            <button class="demo-button" id="copy-to">Copy</button>
-            <input class="demo-input" id="copy-to-input" aria-label="Click copy" placeholder="Click copy."></input>
-          </div>
-          <p>In this example we copy a phrase to the clipboard. After clicking 'Copy' use the text area to paste (CMD + V or CTRL + V) the phrase from the clipboard.</p>
-          <h5>Renderer Process</h5>
-          <pre><code data-path="renderer-process/system/copy.js"></code></pre>
-        </div>
-      </div>
-    </div> -->
+		<div class="demo">
+			<div class="demo-wrapper">
+				<h3>Existing File</h3>
+				<div class="demo-controls">
+					<button class="demo-button" id="decrypt-browse-1">Browse</button>
+					<input style="width: calc(100%);" value="" class="demo-input" id="decrypt-path-1" aria-label="Click browse" placeholder="Path to existing file">
+				</div>
+				<br/>
+				<h3>Use Custom Key</h3>
+				<div class="demo-controls">
+					<select name"Option" id="decrypt-key" class="demo-button" style="width:5.8em; height: 2.5em">
+						<option value="n">No</option>
+						<option value="y">Yes</option>
+					</select>
+				</div>
+				<br/>
+				<div class="demo-controls"  id="decrypt-yeskey" style="display:none;">
+					<button class="demo-button" id="decrypt-browse-2">Browse</button>
+					<input style="width: calc(100%);" value="" class="demo-input" id="decrypt-path-key" aria-label="Click browse" placeholder="Path to key file">
+				</div>
+				<button style="margin-top: 5em; width: calc(100%);" class="demo-button" id="decrypt-btn">Flip File!</button>
+			</div>
+		</div>
 
-    <script type="text/javascript">
-      require('./renderer-process/system/copy')
-      require('./renderer-process/system/paste')
-    </script>
+		<script type="text/javascript">
+			require('./renderer-process/decrypt')
+		</script>
 
-  </section>
+	</section>
 </template>
