@@ -25,9 +25,9 @@ function handleSectionTrigger (event) {
   // settings.set('activeSectionButtonId', buttonId)
 }
 
-function activateDefaultSection () {
-  document.getElementById('button-windows').click()
-}
+// function activateDefaultSection () {
+//   document.getElementById('button-windows').click()
+// }
 
 function showMainContent () {
   document.querySelector('.js-nav').classList.add('is-shown')
