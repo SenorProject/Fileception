@@ -26,7 +26,7 @@ function handleSectionTrigger (event) {
 }
 
 function activateDefaultSection () {
-  document.getElementById('button-app-sys-information').click()
+  document.getElementById('button-createfile').click()
 }
 
 function showMainContent () {

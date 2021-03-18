@@ -1,18 +1,18 @@
-/* Demo */
+/* App */
 
-.demo:first-of-type {
+.app:first-of-type {
   margin-top: 2rem;
 }
-.demo:last-of-type {
+.app:last-of-type {
   margin-bottom: 2rem;
 }
 @media (min-width: 940px) {
-  .demo:last-of-type {
+  .app:last-of-type {
     margin-bottom: 4rem;
   }
 }
 
-.demo-wrapper {
+.app-wrapper {
   position: relative;
   max-width: 740px;
   margin: 0 auto;
@@ -22,7 +22,7 @@
 
 /* Toggle Button ----------------------------- */
 
-.demo-toggle-button {
+.app-toggle-button {
   position: relative;
   display: block;
   margin: 0;
@@ -39,8 +39,8 @@
   outline: none;
 }
 
-.demo-toggle-button:before,
-.demo-toggle-button:after {
+.app-toggle-button:before,
+.app-toggle-button:after {
   content: "";
   position: absolute;
   left: 0;
@@ -49,42 +49,42 @@
   background-color: hsl(0,0%,88%);
   transition: transform .2s cubic-bezier(.4,.1,0,1);
 }
-.demo-toggle-button:before {
+.app-toggle-button:before {
   top: 0;
   transform-origin: bottom center;
   transform: translateX(.7em) rotate(-30deg) scale(.75);
 }
-.demo-toggle-button:after {
+.app-toggle-button:after {
   bottom: 0;
   transform-origin: top center;
   transform: translateX(.7em) rotate(30deg) scale(.75);
 }
-.is-open .demo-toggle-button:before,
-.is-open .demo-toggle-button:after {
+.is-open .app-toggle-button:before,
+.is-open .app-toggle-button:after {
   transform: rotate(0deg);
 }
-.demo-toggle-button:focus:before,
-.demo-toggle-button:focus:after {
+.app-toggle-button:focus:before,
+.app-toggle-button:focus:after {
   background-color: currentColor;
 }
 
 /* Meta info */
 
-.demo-meta {
+.app-meta {
   margin-top: .2em;
   font-size: 11px;
   font-weight: 300;
   text-transform: uppercase;
   color: var(--color-subtle);
 }
-.demo-meta-divider {
+.app-meta-divider {
   margin: 0 .5em;
 }
 
 
-/* Demo Box ----------------------------- */
+/* App Box ----------------------------- */
 
-.demo-box {
+.app-box {
   display: none;
   position: relative;
   padding: 2em;
@@ -94,7 +94,7 @@
   border: 1px solid var(--color-border);
   background-color: var(--color-bg);
 }
-.demo-box:before {
+.app-box:before {
   content: "";
   position: absolute;
   top: -11px;
@@ -107,33 +107,33 @@
   transform: rotate(-45deg);
 }
 
-.is-open .demo-box {
+.is-open .app-box {
   display: block;
   animation: demo-box-fade-in .2s cubic-bezier(0, .20, .20, .96);
 }
-@keyframes demo-box-fade-in {
+@keyframes app-box-fade-in {
     0% { opacity: 0; transform: translateY(-20px); }
   100% { opacity: 1; transform: translateY(0); }
 }
 
-.demo-box > p:first-child {
+.app-box > p:first-child {
   margin-top: 0;
 }
 
-.demo-box h5 {
+.app-box h5 {
   font-size: 1em;
   margin-bottom: .6em;
 }
 
 
-/* Demo Controls ----------------------------- */
+/* App Controls ----------------------------- */
 
-.demo-controls {
+.app-controls {
   display: flex;
   align-items: center;
 }
 
-.demo-button {
+.app-button {
   align-self: flex-start;
   margin-right: 1em;
   border: 2px solid;
@@ -144,15 +144,15 @@
   color: inherit;
   background-color: transparent;
 }
-.demo-button:focus {
+.app-button:focus {
   outline: none;
   background-color: black;
 }
-.demo-button:active {
+.app-button:active {
   border-color: var(--color-border);
 }
 
-.demo-input {
+.app-input {
   flex: 1;
   border: 2px solid var(--color-border);
   border-radius: 4px;
@@ -162,13 +162,13 @@
   color: inherit;
   background-color: transparent;
 }
-.demo-input:focus {
+.app-input:focus {
   outline: none;
   border-color: hsl(0,0%,80%);
   background-color: black;
 }
 
-.demo-response {
+.app-response {
   flex: 1;
   word-break: break-word;
 }
@@ -181,7 +181,7 @@
 .disappear {
   opacity: 0;
 }
-.demo-button.smooth-disappear:focus {
+.app-button.smooth-disappear:focus {
   outline: inherit;
   border-color: inherit;
   background-color: inherit;
@@ -189,17 +189,17 @@
 
 /* ProTip ----------------------------- */
 
-.demo-protip {
+.app-protip {
   margin-top: 2rem;
   padding: 1.5rem 2rem 2rem 2rem;
   border: 1px solid hsla(0,0%,0%,.06);
   border-radius: 6px;
   background: var(--color-accent) linear-gradient(hsla(0,0%,100%,.85), hsla(0,0%,100%,.85));
 }
-.demo-protip h2 {
+.app-protip h2 {
   margin: 0 0 .5rem 0;
 }
-.demo-protip strong {
+.app-protip strong {
   font-weight: 600;
 }
 

@@ -1,5 +1,5 @@
 <template class="task-template">
-	<section id="clipboard-section" class="section js-section u-category-system">
+	<section id="decrypt-section" class="section js-section u-category-operations">
 		<header class="section-header">
 			<div class="section-wrapper">
 				<h1>
@@ -10,27 +10,27 @@
 			</div>
 		</header>
 
-		<div class="demo">
-			<div class="demo-wrapper">
+		<div class="app">
+			<div class="app-wrapper">
 				<h3>Existing File</h3>
-				<div class="demo-controls">
-					<button class="demo-button" id="decrypt-browse-1">Browse</button>
-					<input readonly="readonly" style="width: calc(100%);" value="" class="demo-input" id="decrypt-path-1" aria-label="Click browse" placeholder="Path to existing file">
+				<div class="app-controls">
+					<button class="app-button" id="decrypt-browse-1">Browse</button>
+					<input readonly="readonly" style="width: calc(100%);" value="" class="app-input" id="decrypt-path-1" aria-label="Click browse" placeholder="Path to existing file">
 				</div>
 				<br/>
 				<h3>Use Custom Key</h3>
-				<div class="demo-controls">
-					<select name"Option" id="decrypt-key" class="demo-button" style="width:5.8em; height: 2.5em">
+				<div class="app-controls">
+					<select name"Option" id="decrypt-key" class="app-button" style="width:5.8em; height: 2.5em">
 						<option value="n">No</option>
 						<option value="y">Yes</option>
 					</select>
 				</div>
 				<br/>
-				<div class="demo-controls"  id="decrypt-yeskey" style="display:none;">
-					<button class="demo-button" id="decrypt-browse-key">Browse</button>
-					<input readonly="readonly" style="width: calc(100%);" value="" class="demo-input" id="decrypt-path-key" aria-label="Click browse" placeholder="Path to key file">
+				<div class="app-controls"  id="decrypt-yeskey" style="display:none;">
+					<button class="app-button" id="decrypt-browse-key">Browse</button>
+					<input readonly="readonly" style="width: calc(100%);" value="" class="app-input" id="decrypt-path-key" aria-label="Click browse" placeholder="Path to key file">
 				</div>
-				<button style="margin-top: 5em; width: calc(100%); border-color: grey; color: grey" class="demo-button" id="decrypt-btn">Flip File!</button>
+				<button style="margin-top: 5em; width: calc(100%); border-color: grey; color: grey" class="app-button" id="decrypt-btn">Flip File!</button>
 			</div>
 		</div>
 
