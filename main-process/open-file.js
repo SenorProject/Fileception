@@ -1,7 +1,8 @@
-const {ipcMain, dialog} = require('electron')
+const {ipcMain, dialog, BrowserWindow} = require('electron')
 
 ipcMain.on('create-browse-1', (event, args) => {
-	dialog.showOpenDialog({
+	const window = BrowserWindow.fromWebContents(event.sender)
+	dialog.showOpenDialog(window,{
 		properties: ['openFile']
 	}).then (files => {
 		if(files){
@@ -11,7 +12,8 @@ ipcMain.on('create-browse-1', (event, args) => {
 })
 
 ipcMain.on('create-browse-2', (event, args) => {
-	dialog.showOpenDialog({
+	const window = BrowserWindow.fromWebContents(event.sender)
+	dialog.showOpenDialog(window,{
 		properties: ['openFile']
 	}).then (files => {
 		if(files){
@@ -21,7 +23,8 @@ ipcMain.on('create-browse-2', (event, args) => {
 })
 
 ipcMain.on('decrypt-browse-1', (event, args) => {
-	dialog.showOpenDialog({
+	const window = BrowserWindow.fromWebContents(event.sender)
+	dialog.showOpenDialog(window,{
 		properties: ['openFile']
 	}).then (files => {
 		if(files){
@@ -31,7 +34,8 @@ ipcMain.on('decrypt-browse-1', (event, args) => {
 })
 
 ipcMain.on('decrypt-browse-key', (event, args) => {
-	dialog.showOpenDialog({
+	const window = BrowserWindow.fromWebContents(event.sender)
+	dialog.showOpenDialog(window,{
 		properties: ['openFile'],
     filters: [
       { name: 'key', extensions: ['txt'] }
@@ -44,7 +48,8 @@ ipcMain.on('decrypt-browse-key', (event, args) => {
 })
 
 ipcMain.on('encrypt-browse-1', (event, args) => {
-	dialog.showOpenDialog({
+	const window = BrowserWindow.fromWebContents(event.sender)
+	dialog.showOpenDialog(window,{
 		properties: ['openFile']
 	}).then (files => {
 		if(files){
@@ -54,7 +59,8 @@ ipcMain.on('encrypt-browse-1', (event, args) => {
 })
 
 ipcMain.on('encrypt-browse-key', (event, args) => {
-	dialog.showOpenDialog({
+	const window = BrowserWindow.fromWebContents(event.sender)
+	dialog.showOpenDialog(window,{
 		properties: ['openFile'],
     filters: [
       { name: 'key', extensions: ['txt'] }

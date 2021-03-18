@@ -15,6 +15,14 @@ document.getElementById("create-key").addEventListener("change", (event) =>{
     }
 })
 
+function handleBtnEnable(){
+    if(path1 != "" && path2 != ""){
+        document.getElementById("create-btn").disabled = false
+        document.getElementById("create-btn").style.borderColor = "red"
+        document.getElementById("create-btn").style.color = "red"
+    }
+}
+
 // Send request to open visible file open dialog
 document.getElementById("create-browse-1").addEventListener('click', (event) => {
     ipcRenderer.send('create-browse-1')
@@ -25,6 +33,7 @@ ipcRenderer.on('create-browsed-1', (event, path) => {
     if(path.filePaths[0] != null){
 		path1 = path.filePaths[0]
 		document.getElementById("create-path-1").value = path1
+        handleBtnEnable()
 	}
 })
 
@@ -38,6 +47,7 @@ ipcRenderer.on('create-browsed-2', (event, path) => {
     if(path.filePaths[0] != null){
 		path2 = path.filePaths[0]
 		document.getElementById("create-path-2").value = path2
+        handleBtnEnable()
 	}
 })
 

@@ -20,8 +20,9 @@ function initialize () {
   function createWindow () {
     const windowOptions = {
       width: 1080,
-      minWidth: 680,
+      minWidth: 850,
       height: 840,
+      minHeight: 100,
       title: "Fileception",
       webPreferences: {
         nodeIntegration: true

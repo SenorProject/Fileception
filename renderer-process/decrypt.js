@@ -15,6 +15,14 @@ document.getElementById("decrypt-key").addEventListener("change", (event) =>{
     }
 })
 
+function handleBtnEnable(){
+    if(path1 != ""){
+        document.getElementById("decrypt-btn").disabled = false
+        document.getElementById("decrypt-btn").style.borderColor = "red"
+        document.getElementById("decrypt-btn").style.color = "red"
+    }
+}
+
 // Send request to open existing file open dialog
 document.getElementById("decrypt-browse-1").addEventListener('click', (event) => {
     ipcRenderer.send('decrypt-browse-1')
@@ -25,6 +33,7 @@ ipcRenderer.on('decrypt-browsed-1', (event, path) => {
     if(path.filePaths[0] != null){
 		path1 = path.filePaths[0]
 		document.getElementById("decrypt-path-1").value = path1
+        handleBtnEnable()
 	}
 })
 

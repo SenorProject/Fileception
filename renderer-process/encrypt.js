@@ -15,6 +15,14 @@ document.getElementById("encrypt-key").addEventListener("change", (event) =>{
     }
 })
 
+function handleBtnEnable(){
+    if(path1 != ""){
+        document.getElementById("encrypt-btn").disabled = false
+        document.getElementById("encrypt-btn").style.borderColor = "red"
+        document.getElementById("encrypt-btn").style.color = "red"
+    }
+}
+
 // Send request to open existing file open dialog
 document.getElementById("encrypt-browse-1").addEventListener('click', (event) => {
     ipcRenderer.send('encrypt-browse-1')
@@ -25,6 +33,7 @@ ipcRenderer.on('encrypt-browsed-1', (event, path) => {
     if(path.filePaths[0] != null){
 		path1 = path.filePaths[0]
 		document.getElementById("encrypt-path-1").value = path1
+        handleBtnEnable()
 	}
 })
 

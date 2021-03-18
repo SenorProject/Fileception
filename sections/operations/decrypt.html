@@ -15,7 +15,7 @@
 				<h3>Existing File</h3>
 				<div class="demo-controls">
 					<button class="demo-button" id="decrypt-browse-1">Browse</button>
-					<input disabled style="width: calc(100%);" value="" class="demo-input" id="decrypt-path-1" aria-label="Click browse" placeholder="Path to existing file">
+					<input readonly="readonly" style="width: calc(100%);" value="" class="demo-input" id="decrypt-path-1" aria-label="Click browse" placeholder="Path to existing file">
 				</div>
 				<br/>
 				<h3>Use Custom Key</h3>
@@ -28,9 +28,9 @@
 				<br/>
 				<div class="demo-controls"  id="decrypt-yeskey" style="display:none;">
 					<button class="demo-button" id="decrypt-browse-key">Browse</button>
-					<input style="width: calc(100%);" value="" class="demo-input" id="decrypt-path-key" aria-label="Click browse" placeholder="Path to key file">
+					<input readonly="readonly" style="width: calc(100%);" value="" class="demo-input" id="decrypt-path-key" aria-label="Click browse" placeholder="Path to key file">
 				</div>
-				<button style="margin-top: 5em; width: calc(100%);" class="demo-button" id="decrypt-btn">Flip File!</button>
+				<button style="margin-top: 5em; width: calc(100%); border-color: grey; color: grey" class="demo-button" id="decrypt-btn">Flip File!</button>
 			</div>
 		</div>
 
