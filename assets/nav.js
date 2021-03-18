@@ -20,9 +20,9 @@ function handleSectionTrigger (event) {
   const sectionId = `${event.target.dataset.section}-section`
   document.getElementById(sectionId).classList.add('is-shown')
 
-  // // Save currently active button in localStorage
-  // const buttonId = event.target.getAttribute('id')
-  // settings.set('activeSectionButtonId', buttonId)
+  // Save currently active button in localStorage
+  const buttonId = event.target.getAttribute('id')
+  settings.set('activeSectionButtonId', buttonId)
 }
 
 function activateDefaultSection () {

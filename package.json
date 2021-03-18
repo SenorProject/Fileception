@@ -1,8 +1,8 @@
 {
-  "name": "electron-api-demos",
-  "productName": "Electron API Demos",
-  "version": "2.0.2",
-  "description": "Electron interactive API demos",
+  "name": "filception",
+  "productName": "Fileception",
+  "version": "1.0.0",
+  "description": "Senior Project",
   "main": "main.js",
   "bin": "cli.js",
   "scripts": {
@@ -23,13 +23,13 @@
     "prepack": "check-for-leaks",
     "prepush": "check-for-leaks"
   },
-  "repository": "https://github.com/electron/electron-api-demos",
+  "repository": "https://github.com/SenorProject/Fileception.git",
   "keywords": [
-    "Electron",
-    "API",
-    "demo"
+    "Fileception",
+    "Angecryption",
+    "Project"
   ],
-  "author": "GitHub",
+  "author": "Mustafa Mohamed",
   "license": "MIT",
   "devDependencies": {
     "@octokit/rest": "^16.3.2",
