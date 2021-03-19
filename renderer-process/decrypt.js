@@ -1,4 +1,9 @@
-const { ipcRenderer } = require("electron")
+const { dialog, ipcRenderer } = require("electron")
+const { exec } = require('child_process')
+const isMac = process.platform === 'darwin'
+const isWin = process.platform === 'win32'
+const isLinux = process.platform === 'linux'
+const arch = process.arch
 
 var path1 = ""
 var keypath = ""
@@ -58,4 +63,26 @@ document.getElementById("decrypt-btn").addEventListener('click', (event) => {
 // Receive response from save file dialog
 ipcRenderer.on('decrypted-file', (event, path) => {
     console.log("save file path: ", path);
+    flag = "d"
+    if (isMac){
+		exec(`${process.cwd()}/renderer-process/py/intelmac -${flag} ${file3}`, (error, stdout, stderr) => {
+			console.log(`stdout: ${stdout}`);
+		})
+	}
+	else if (isWin){
+		if(arch="x64"){
+			exec(`${process.cwd()}/renderer-process/py/winx64.exe -${flag} ${file3}`, (error, stdout, stderr) => {
+				console.log(`stdout: ${stdout}`);
+			})	
+		}
+		else{
+			exec(`${process.cwd()}/renderer-process/py/winx32.exe -${flag} ${file3}`, (error, stdout, stderr) => {
+				console.log(`stdout: ${stdout}`);
+			})	
+		}
+	}
+	else if (isLinux){
+		exec(`${process.cwd()}/renderer-process/py/linux -${flag} ${file3}`, (error, stdout, stderr) => {
+			console.log(`stdout: ${stdout}`);
+		})	}
 })

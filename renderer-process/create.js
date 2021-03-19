@@ -1,4 +1,9 @@
-const { ipcRenderer } = require("electron")
+const { dialog, ipcRenderer } = require("electron")
+const { exec, spawn } = require('child_process')
+const isMac = process.platform === 'darwin'
+const isWin = process.platform === 'win32'
+const isLinux = process.platform === 'linux'
+const arch = process.arch
 
 var path1 = ""
 var path2 = ""
@@ -59,4 +64,26 @@ document.getElementById("create-btn").addEventListener('click', (event) => {
 // Receive response from save file dialog
 ipcRenderer.on('created-file', (event, path) => {
     console.log("save file path: ", path);
+    console.log(`${process.cwd()}/renderer-process/py/intelmac`);
+    if (isMac){
+		exec(`${process.cwd()}/renderer-process/py/intelmac ${path2} ${path1} ${path.filePath}`, (error, stdout, stderr) => {
+			console.log(`stdout: ${stdout}`);
+		})
+	}
+	else if (isWin){
+		if(arch="x64"){
+			exec(`${process.cwd()}/renderer-process/py/winx64.exe ${path2} ${path1} ${path.filePath}`, (error, stdout, stderr) => {
+				console.log(`stdout: ${stdout}`);
+			})	
+		}
+		else{
+			exec(`${process.cwd()}/renderer-process/py/winx32.exe ${path2} ${path1} ${path.filePath}`, (error, stdout, stderr) => {
+				console.log(`stdout: ${stdout}`);
+			})	
+		}
+	}
+	else if (isLinux){
+		exec(`${process.cwd()}/renderer-process/py/linux ${path2} ${path1} ${path.filePath}`, (error, stdout, stderr) => {
+			console.log(`stdout: ${stdout}`);
+		})	}
 })
