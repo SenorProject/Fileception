@@ -8,15 +8,19 @@
 # CIS4914 Senior Project
 #
 #
-# Usage: ./script3 [hidden.pdf] [cover.pdf] [combined.pdf]
+# Usage: ./script3 [hidden.pdf] [cover.pdf] [combined.pdf] [Generate key]
 #       -Output file combined.pdf will contain encrypted data from hidden.pdf
 #               but will display as cover.pdf, can be decrypted to show hidden.pdf
+#       -Will generate key if "yes" is inputted under [Generate key], otherwise will
+#               use default key
 #
-# Encrypt: ./script3 -e [combined.pdf]
-#       -intakes user-specified file and encrypts to reveal the other pdf
+# Encrypt: ./script3 -e [combined.pdf] [key.txt]
+#       -Intakes user-specified file and encrypts to reveal the other pdf
+#       -If no key path is given, will use default key
 #
-# Decrypt: ./script3 -d [combined.pdf]
-#       -intakes user-specified file and decrypts to reveal the other pdf
+# Decrypt: ./script3 -d [combined.pdf] [key.txt]
+#       -Intakes user-specified file and decrypts to reveal the other pdf
+#       -If no key path is given, will use default key
 #
 
 import sys
@@ -35,11 +39,11 @@ EOF_SIZE = len(EOF)
 
 # takes argument vector as parameter
 def checkArgs(v):
-    if(len(v) == 4):
+    if(len(v) == 4 or len(v) == 5):
         return True
-    elif(len(v) > 4):
+    elif(len(v) > 5):
         print ("Error: excess arguments\n")
-    elif(len(v) < 3):
+    elif(len(v) < 4):
         print ("Error: missing arguments\n")
 
     return False
@@ -49,7 +53,7 @@ def checkFlag(v):
     if(len(v) > 1 and v[1][0] != '-'):
         return False
     else:
-        if(len(v) != 3):
+        if(len(v) < 3 and len(v) > 4 ):
             print ("Error: number of arguments\n")
             return False
         else:
@@ -66,9 +70,10 @@ def checkFlag(v):
 # encrypts result file
 def enc(file):
 
-    choice = input("Would you like to use a keyfile to encrypt [Y/n]? ")
-    if choice.lower() == 'y':
-        key_file_path = input("Enter the path to the keyfile: ")
+   # choice = input("Would you like to use a keyfile to encrypt [Y/n]? ")
+    
+    if len(sys.argv) == 4:
+        key_file_path = sys.argv[3]
         key_file = open(key_file_path, 'rb')
         key = key_file.read()
     else:
@@ -98,9 +103,8 @@ def enc(file):
 # decrypts result file
 def dec(cfile):
 
-    import_choice = input("Would you like to import a key [Y/n]? ")
-    if import_choice.lower() == "y":
-        key_file_path = input("Enter the path to the keyfile: ")
+    if len(sys.argv) == 4:
+        key_file_path = sys.argv[3]
         key_file = open(key_file_path,"rb")
         key = key_file.read()
     else:
@@ -162,14 +166,20 @@ if(checkFlag(sys.argv)):
 elif(checkArgs(sys.argv)):
     infile1, infile2, outfile = sys.argv[1:4]
 
-    key_choice = input("Would you like to generate a unique key? (Note: if a unique key is used, it is required for decryption)\n[Y/n]:")
-    if key_choice.lower() == 'y':
+    generate = False
+
+    if len(sys.argv) == 5:
+        if sys.argv[4] == "yes":
+            generate = True
+
+    if generate:
         key = secrets.token_bytes(32) # 32 byte AES key
         key_file = open("key.txt", "wb")
         key_file.write(key)
         print(key)
     else:
         key = sym_key
+        print(key)
 
     with open(infile1, "rb") as data:
         infile1 = pad(data.read())
