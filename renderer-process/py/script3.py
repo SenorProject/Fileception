@@ -97,7 +97,7 @@ def enc(file):
     # insert dummy chunk ending and IV
     enc = enc[:i] + cryutil.b(chunk_end) + enc[i:] + iv
 
-    with open("encrypted.pdf", "wb") as o:
+    with open(file.rsplit('/',1)[0]+"/"+"encrypted.pdf", "wb") as o:
         o.write(enc)
 
 # decrypts result file
@@ -146,7 +146,8 @@ def dec(cfile):
     if fileType != '':
         dec += iv
         fileName = "decrypted." + fileType
-        with open(fileName, "wb") as o:
+        print(cfile.rsplit('/',1)[0]+fileName)
+        with open(cfile.rsplit('/',1)[0]+"/"+fileName, "wb") as o:
             o.write(dec)
 
         print("File Saved as:",fileName)
@@ -174,7 +175,7 @@ elif(checkArgs(sys.argv)):
 
     if generate:
         key = secrets.token_bytes(32) # 32 byte AES key
-        key_file = open("key.txt", "wb")
+        key_file = open(outfile.rsplit('/',1)[0]+"/key.txt", "wb")
         key_file.write(key)
         print(key)
     else:

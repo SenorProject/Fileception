@@ -62,27 +62,55 @@ document.getElementById("decrypt-btn").addEventListener('click', (event) => {
 
 // Receive response from save file dialog
 ipcRenderer.on('decrypted-file', (event, path) => {
-    console.log("save file path: ", path);
-    flag = "d"
-    if (isMac){
-		exec(`${process.cwd()}/renderer-process/py/intelmac -${flag} ${file3}`, (error, stdout, stderr) => {
-			console.log(`stdout: ${stdout}`);
-		})
-	}
-	else if (isWin){
-		if(arch="x64"){
-			exec(`${process.cwd()}/renderer-process/py/winx64.exe -${flag} ${file3}`, (error, stdout, stderr) => {
+    // console.log("save file path: ", path);
+	flag = document.getElementById("decrypt-key").value == "y"
+    opt = "d"
+	if(flag){
+		if (isMac){
+			exec(`${process.cwd()}/renderer-process/py/intelmac -${opt} ${path1} ${keypath}`, (error, stdout, stderr) => {
+				console.log(`stdout: ${stdout}`);
+			})
+		}
+		else if (isWin){
+			if(arch="x64"){
+				exec(`${process.cwd()}/renderer-process/py/winx64.exe -${opt} ${path1} ${keypath}`, (error, stdout, stderr) => {
+					console.log(`stdout: ${stdout}`);
+				})	
+			}
+			else{
+				exec(`${process.cwd()}/renderer-process/py/winx32.exe -${opt} ${path1} ${keypath}`, (error, stdout, stderr) => {
+					console.log(`stdout: ${stdout}`);
+				})	
+			}
+		}
+		else if (isLinux){
+			exec(`${process.cwd()}/renderer-process/py/linux -${opt} ${path1} ${keypath}`, (error, stdout, stderr) => {
 				console.log(`stdout: ${stdout}`);
 			})	
 		}
-		else{
-			exec(`${process.cwd()}/renderer-process/py/winx32.exe -${flag} ${file3}`, (error, stdout, stderr) => {
+	}
+	else{
+		if (isMac){
+			exec(`${process.cwd()}/renderer-process/py/intelmac -${opt} ${path1}`, (error, stdout, stderr) => {
+				console.log(`stdout: ${stdout}`);
+			})
+		}
+		else if (isWin){
+			if(arch="x64"){
+				exec(`${process.cwd()}/renderer-process/py/winx64.exe -${opt} ${path1}`, (error, stdout, stderr) => {
+					console.log(`stdout: ${stdout}`);
+				})	
+			}
+			else{
+				exec(`${process.cwd()}/renderer-process/py/winx32.exe -${opt} ${path1}`, (error, stdout, stderr) => {
+					console.log(`stdout: ${stdout}`);
+				})	
+			}
+		}
+		else if (isLinux){
+			exec(`${process.cwd()}/renderer-process/py/linux -${opt} ${path1}`, (error, stdout, stderr) => {
 				console.log(`stdout: ${stdout}`);
 			})	
 		}
 	}
-	else if (isLinux){
-		exec(`${process.cwd()}/renderer-process/py/linux -${flag} ${file3}`, (error, stdout, stderr) => {
-			console.log(`stdout: ${stdout}`);
-		})	}
 })

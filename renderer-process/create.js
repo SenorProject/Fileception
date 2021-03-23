@@ -63,27 +63,56 @@ document.getElementById("create-btn").addEventListener('click', (event) => {
 
 // Receive response from save file dialog
 ipcRenderer.on('created-file', (event, path) => {
-    console.log("save file path: ", path);
-    console.log(`${process.cwd()}/renderer-process/py/intelmac`);
-    if (isMac){
-		exec(`${process.cwd()}/renderer-process/py/intelmac ${path2} ${path1} ${path.filePath}`, (error, stdout, stderr) => {
-			console.log(`stdout: ${stdout}`);
-		})
-	}
-	else if (isWin){
-		if(arch="x64"){
-			exec(`${process.cwd()}/renderer-process/py/winx64.exe ${path2} ${path1} ${path.filePath}`, (error, stdout, stderr) => {
+	flag = document.getElementById("create-key").value == "y"
+    // console.log("save file path: ", path);
+    // console.log(`${process.cwd()}/renderer-process/py/intelmac`);
+	if(flag){
+		if (isMac){
+			exec(`${process.cwd()}/renderer-process/py/intelmac ${path2} ${path1} ${path.filePath} yes`, (error, stdout, stderr) => {
+				console.log(`stdout: ${stdout}`);
+			})
+		}
+		else if (isWin){
+			if(arch="x64"){
+				exec(`${process.cwd()}/renderer-process/py/winx64.exe ${path2} ${path1} ${path.filePath} yes`, (error, stdout, stderr) => {
+					console.log(`stdout: ${stdout}`);
+				})	
+			}
+			else{
+				exec(`${process.cwd()}/renderer-process/py/winx32.exe ${path2} ${path1} ${path.filePath} yes`, (error, stdout, stderr) => {
+					console.log(`stdout: ${stdout}`);
+				})	
+			}
+		}
+		else if (isLinux){
+			exec(`${process.cwd()}/renderer-process/py/linux ${path2} ${path1} ${path.filePath} yes`, (error, stdout, stderr) => {
 				console.log(`stdout: ${stdout}`);
 			})	
 		}
-		else{
-			exec(`${process.cwd()}/renderer-process/py/winx32.exe ${path2} ${path1} ${path.filePath}`, (error, stdout, stderr) => {
+	}
+	else {
+		if (isMac){
+			exec(`${process.cwd()}/renderer-process/py/intelmac ${path2} ${path1} ${path.filePath}`, (error, stdout, stderr) => {
+				console.log(`stdout: ${stdout}`);
+			})
+		}
+		else if (isWin){
+			if(arch="x64"){
+				exec(`${process.cwd()}/renderer-process/py/winx64.exe ${path2} ${path1} ${path.filePath}`, (error, stdout, stderr) => {
+					console.log(`stdout: ${stdout}`);
+				})	
+			}
+			else{
+				exec(`${process.cwd()}/renderer-process/py/winx32.exe ${path2} ${path1} ${path.filePath}`, (error, stdout, stderr) => {
+					console.log(`stdout: ${stdout}`);
+				})	
+			}
+		}
+		else if (isLinux){
+			exec(`${process.cwd()}/renderer-process/py/linux ${path2} ${path1} ${path.filePath}`, (error, stdout, stderr) => {
 				console.log(`stdout: ${stdout}`);
 			})	
 		}
 	}
-	else if (isLinux){
-		exec(`${process.cwd()}/renderer-process/py/linux ${path2} ${path1} ${path.filePath}`, (error, stdout, stderr) => {
-			console.log(`stdout: ${stdout}`);
-		})	}
+
 })
