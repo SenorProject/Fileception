@@ -39,14 +39,14 @@ function prepareAssets () {
   const outPath = path.join(__dirname, '..', 'out')
 
   const zipAssets = [{
-    name: 'electron-api-demos-mac.zip',
-    path: path.join(outPath, 'Electron API Demos-darwin-x64', 'Electron API Demos.app')
+    name: 'fileception-mac.zip',
+    path: path.join(outPath, 'Fileception-darwin-x64', 'Fileception.app')
   }, {
-    name: 'electron-api-demos-windows.zip',
-    path: path.join(outPath, 'Electron API Demos-win32-ia32')
+    name: 'fileception.zip',
+    path: path.join(outPath, 'Fileception-win32-ia32')
   }, {
-    name: 'electron-api-demos-linux.zip',
-    path: path.join(outPath, 'Electron API Demos-linux-x64')
+    name: 'fileception-linux.zip',
+    path: path.join(outPath, 'Fileception-linux-x64')
   }]
 
   return Promise.all(zipAssets.map(zipAsset)).then((zipAssets) => {
@@ -54,11 +54,11 @@ function prepareAssets () {
       name: 'RELEASES',
       path: path.join(outPath, 'windows-installer', 'RELEASES')
     }, {
-      name: 'ElectronAPIDemosSetup.exe',
-      path: path.join(outPath, 'windows-installer', 'ElectronAPIDemosSetup.exe')
+      name: 'FileceptionSetup.exe',
+      path: path.join(outPath, 'windows-installer', 'FileceptionSetup.exe')
     }, {
-      name: `electron-api-demos-${version}-full.nupkg`,
-      path: path.join(outPath, 'windows-installer', `electron-api-demos-${version}-full.nupkg`)
+      name: `fileception-${version}-full.nupkg`,
+      path: path.join(outPath, 'windows-installer', `fileception-${version}-full.nupkg`)
     }])
   })
 }
@@ -88,8 +88,8 @@ function zipAsset (asset) {
 
 async function getOrCreateRelease () {
   const { data: releases } = await github.repos.listReleases({
-    owner: 'electron',
-    repo: 'electron-api-demos',
+    owner: 'MustafaMohamed001',
+    repo: 'fileception',
     per_page: 100,
     page: 1
   })
@@ -101,8 +101,8 @@ async function getOrCreateRelease () {
 
   console.log('Creating new draft release')
   const { data: release } = await github.repos.createRelease({
-    owner: 'electron',
-    repo: 'electron-api-demos',
+    owner: 'MustafaMohamed001',
+    repo: 'fileception',
     tag_name: `v${version}`,
     target_commitish: 'master',
     name: version,
@@ -157,8 +157,8 @@ function uploadAsset (release, asset) {
 function publishRelease (release) {
   console.log('Publishing release')
   return github.repos.updateRelease({
-    owner: 'electron',
-    repo: 'electron-api-demos',
+    owner: 'MustafaMohamed001',
+    repo: 'Fileception',
     release_id: release.id,
     draft: false
   })

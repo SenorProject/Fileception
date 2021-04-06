@@ -8,7 +8,7 @@ const {app, BrowserWindow} = require('electron')
 
 const debug = /--debug/.test(process.argv[2])
 
-if (process.mas) app.setName('Electron APIs')
+if (process.mas) app.setName('Fileception')
 
 let mainWindow = null
 
@@ -29,8 +29,10 @@ function initialize () {
       }
     }
 
+    process.noDeprecation = true
+
     if (process.platform === 'linux') {
-      windowOptions.icon = path.join(__dirname, '/assets/app-icon/png/512.png')
+      windowOptions.icon = path.join(__dirname, '/assets/app-icon/png/1024.png')
     }
 
     mainWindow = new BrowserWindow(windowOptions)

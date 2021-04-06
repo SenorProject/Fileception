@@ -62,5 +62,9 @@
     "env": {
       "mocha": true
     }
-  }
+  },
+  "build": {
+    "files": "!**/Old/*"
+}
+
 }
