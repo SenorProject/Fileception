@@ -1,4 +1,5 @@
 const { dialog, ipcRenderer } = require("electron")
+const app = require('electron').remote.app
 const { exec, spawn } = require('child_process')
 const isMac = process.platform === 'darwin'
 const isWin = process.platform === 'win32'
@@ -7,6 +8,18 @@ const arch = process.arch
 
 var path1 = ""
 var path2 = ""
+
+// document.addEventListener('DOMContentLoaded', function() {
+
+// 	const app = require('electron').remote.app
+// 	// const fs = require('fs');
+
+// 	// fs.readdir(".", (err, dir) => {
+// 	// //console.log 29(dir);
+// 	// for(let filePath of dir)
+// 		alert(app.getAppPath()); // WORKING CODE
+// 	// })
+// }, false);
 
 document.getElementById("create-key").addEventListener("change", (event) =>{
     var flag = document.getElementById("create-key").value
@@ -68,48 +81,48 @@ ipcRenderer.on('created-file', (event, path) => {
     // console.log(`${process.cwd()}/renderer-process/py/intelmac`);
 	if(flag){
 		if (isMac){
-			exec(`${process.cwd()}/renderer-process/py/intelmac ${path2} ${path1} ${path.filePath} yes`, (error, stdout, stderr) => {
+			exec(`${app.getAppPath()}/renderer-process/py/intelmac ${path2} ${path1} ${path.filePath} yes`, (error, stdout, stderr) => {
 				console.log(`stdout: ${stdout}`);
 			})
 		}
 		else if (isWin){
-			if(arch="x64"){
-				exec(`${process.cwd()}/renderer-process/py/winx64.exe ${path2} ${path1} ${path.filePath} yes`, (error, stdout, stderr) => {
+			if(arch=="x64"){
+				exec(`${app.getAppPath()}\\renderer-process\\py\\winx64.exe ${path2} ${path1} ${path.filePath} yes`, (error, stdout, stderr) => {
 					console.log(`stdout: ${stdout}`);
 				})	
 			}
 			else{
-				exec(`${process.cwd()}/renderer-process/py/winx32.exe ${path2} ${path1} ${path.filePath} yes`, (error, stdout, stderr) => {
+				exec(`${app.getAppPath()}\\renderer-process\\py\\winx32.exe ${path2} ${path1} ${path.filePath} yes`, (error, stdout, stderr) => {
 					console.log(`stdout: ${stdout}`);
 				})	
 			}
 		}
 		else if (isLinux){
-			exec(`${process.cwd()}/renderer-process/py/linux ${path2} ${path1} ${path.filePath} yes`, (error, stdout, stderr) => {
+			exec(`${app.getAppPath()}/renderer-process/py/linux ${path2} ${path1} ${path.filePath} yes`, (error, stdout, stderr) => {
 				console.log(`stdout: ${stdout}`);
 			})	
 		}
 	}
 	else {
 		if (isMac){
-			exec(`${process.cwd()}/renderer-process/py/intelmac ${path2} ${path1} ${path.filePath}`, (error, stdout, stderr) => {
+			exec(`${app.getAppPath()}/renderer-process/py/intelmac ${path2} ${path1} ${path.filePath}`, (error, stdout, stderr) => {
 				console.log(`stdout: ${stdout}`);
 			})
 		}
 		else if (isWin){
-			if(arch="x64"){
-				exec(`${process.cwd()}/renderer-process/py/winx64.exe ${path2} ${path1} ${path.filePath}`, (error, stdout, stderr) => {
+			if(arch=="x64"){
+				exec(`${app.getAppPath()}\\renderer-process\\py\\winx64.exe ${path2} ${path1} ${path.filePath}`, (error, stdout, stderr) => {
 					console.log(`stdout: ${stdout}`);
 				})	
 			}
 			else{
-				exec(`${process.cwd()}/renderer-process/py/winx32.exe ${path2} ${path1} ${path.filePath}`, (error, stdout, stderr) => {
+				exec(`${app.getAppPath()}\\renderer-process\\py\\winx32.exe ${path2} ${path1} ${path.filePath}`, (error, stdout, stderr) => {
 					console.log(`stdout: ${stdout}`);
 				})	
 			}
 		}
 		else if (isLinux){
-			exec(`${process.cwd()}/renderer-process/py/linux ${path2} ${path1} ${path.filePath}`, (error, stdout, stderr) => {
+			exec(`${app.getAppPath()}/renderer-process/py/linux ${path2} ${path1} ${path.filePath}`, (error, stdout, stderr) => {
 				console.log(`stdout: ${stdout}`);
 			})	
 		}

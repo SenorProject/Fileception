@@ -24,6 +24,7 @@
 #
 
 import sys
+import os
 from Crypto.Cipher import AES
 import Crypto.Util.py3compat as cryutil
 import secrets
@@ -97,8 +98,13 @@ def enc(file):
     # insert dummy chunk ending and IV
     enc = enc[:i] + cryutil.b(chunk_end) + enc[i:] + iv
 
-    with open(file.rsplit('/',1)[0]+"/"+"encrypted.pdf", "wb") as o:
-        o.write(enc)
+    if os.name == 'nt':
+        with open(file.rsplit('\\',1)[0]+"\\"+"encrypted.pdf", "wb") as o:
+            o.write(enc)
+
+    else:
+        with open(file.rsplit('/',1)[0]+"/"+"encrypted.pdf", "wb") as o:
+            o.write(enc)
 
 # decrypts result file
 def dec(cfile):
@@ -147,8 +153,14 @@ def dec(cfile):
         dec += iv
         fileName = "decrypted." + fileType
         print(cfile.rsplit('/',1)[0]+fileName)
-        with open(cfile.rsplit('/',1)[0]+"/"+fileName, "wb") as o:
-            o.write(dec)
+
+        if os.name == 'nt':
+            with open(cfile.rsplit('\\',1)[0]+"\\"+fileName, "wb") as o:
+                o.write(dec)
+
+        else:
+            with open(cfile.rsplit('/',1)[0]+"/"+fileName, "wb") as o:
+                o.write(dec)
 
         print("File Saved as:",fileName)
     else:
@@ -175,7 +187,12 @@ elif(checkArgs(sys.argv)):
 
     if generate:
         key = secrets.token_bytes(32) # 32 byte AES key
-        key_file = open(outfile.rsplit('/',1)[0]+"/key.txt", "wb")
+        
+        if os.name == 'nt':
+            key_file = open(outfile.rsplit('\\',1)[0]+"\\key.txt", "wb")
+        else:
+            key_file = open(outfile.rsplit('/',1)[0]+"/key.txt", "wb")
+            
         key_file.write(key)
         print(key)
     else:
