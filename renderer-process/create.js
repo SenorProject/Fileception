@@ -77,10 +77,8 @@ document.getElementById("create-btn").addEventListener('click', (event) => {
 // Receive response from save file dialog
 ipcRenderer.on('created-file', (event, path) => {
 	flag = document.getElementById("create-key").value == "y"
-    // console.log("save file path: ", path);
-    // console.log(`${process.cwd()}/renderer-process/py/intelmac`);
 	if(flag){
-		if (isMac){
+		if (isMac){ 
 			exec(`${app.getAppPath()}/renderer-process/py/intelmac ${path2} ${path1} ${path.filePath} yes`, (error, stdout, stderr) => {
 				console.log(`stdout: ${stdout}`);
 			})

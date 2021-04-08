@@ -63,7 +63,6 @@ document.getElementById("encrypt-btn").addEventListener('click', (event) => {
 
 // Receive response from save file dialog
 ipcRenderer.on('encrypted-file', (event, path) => {
-    // console.log("save file path: ", path);
 	flag = document.getElementById("encrypt-key").value == "y"
     opt = "e"
 	if(flag){

@@ -99,7 +99,7 @@ def enc(file):
     enc = enc[:i] + cryutil.b(chunk_end) + enc[i:] + iv
 
     if os.name == 'nt':
-        with open(file.rsplit('\\',1)[0]+"\\"+"encrypted.pdf", "wb") as o:
+        with open(file.rsplit('\\',1)[0]+'\\'+"encrypted.pdf", "wb") as o:
             o.write(enc)
 
     else:
@@ -155,7 +155,7 @@ def dec(cfile):
         print(cfile.rsplit('/',1)[0]+fileName)
 
         if os.name == 'nt':
-            with open(cfile.rsplit('\\',1)[0]+"\\"+fileName, "wb") as o:
+            with open(cfile.rsplit('\\',1)[0]+'\\'+fileName, "wb") as o:
                 o.write(dec)
 
         else:
@@ -189,7 +189,7 @@ elif(checkArgs(sys.argv)):
         key = secrets.token_bytes(32) # 32 byte AES key
         
         if os.name == 'nt':
-            key_file = open(outfile.rsplit('\\',1)[0]+"\\key.txt", "wb")
+            key_file = open(outfile.rsplit('\\',1)[0]+"\key.txt", "wb")
         else:
             key_file = open(outfile.rsplit('/',1)[0]+"/key.txt", "wb")
             
